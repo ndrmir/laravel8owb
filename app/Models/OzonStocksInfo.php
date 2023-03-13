@@ -51,6 +51,8 @@ class OzonStocksInfo extends Model
         // dd($strDate);
         $total = 1;
 
+        $this::whereDate('date', '=', \Carbon\Carbon::today()->format('Y-m-d'))->delete();
+
         while ($total) {
             $response = $this->curl->postOzon($this->data, $this->method);
             // print_r($response);
@@ -93,6 +95,7 @@ class OzonStocksInfo extends Model
             }
             $count = count($insertData);
             // print_r($insertData);
+
             try {
                 $infoStocks = $this::insert($insertData);
             } catch (\Illuminate\Database\QueryException $exception) {

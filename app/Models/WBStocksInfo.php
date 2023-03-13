@@ -55,6 +55,8 @@ class WBStocksInfo extends Model
     {
         $strDate = date("Y-m-d H:i:s", time());
 
+        $this::whereDate('date', '=', \Carbon\Carbon::today()->format('Y-m-d'))->delete();
+
         $response = $this->curl->getWB($this->url, 'statistic');
 
         // В случае превышения количества запросов, делаю sleep(2) и повторный запрос 20 попыток
